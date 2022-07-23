@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@angular-devkit/build-angular': ^14.0.5
   '@angular/animations': ^14.0.0
+  '@angular/cdk': 14.1.0
   '@angular/cli': ~14.0.5
   '@angular/common': ^14.0.0
   '@angular/compiler': ^14.0.0
@@ -26,6 +27,7 @@ specifiers:
 
 dependencies:
   '@angular/animations': 14.1.0_@angular+core@14.1.0
+  '@angular/cdk': 14.1.0_ybgtotgnqunb4jezjwo5rlkvva
   '@angular/common': 14.1.0_36wbdubzobvek5dwkv7hqxvz7e
   '@angular/compiler': 14.1.0_@angular+core@14.1.0
   '@angular/core': 14.1.0_rxjs@7.5.6+zone.js@0.11.7
@@ -257,6 +259,21 @@ packages:
     dependencies:
       '@angular/core': 14.1.0_rxjs@7.5.6+zone.js@0.11.7
       tslib: 2.4.0
+    dev: false
+
+  /@angular/cdk/14.1.0_ybgtotgnqunb4jezjwo5rlkvva:
+    resolution: {integrity: sha512-EOQZmlTgj5Tc6/s50kEQUYKWH0S748rzbymBYkvyJs864lP9A8khz83IINmm+PD2sMADKtBETD3aEa5yQRhVAA==}
+    peerDependencies:
+      '@angular/common': ^14.0.0 || ^15.0.0
+      '@angular/core': ^14.0.0 || ^15.0.0
+      rxjs: ^6.5.3 || ^7.4.0
+    dependencies:
+      '@angular/common': 14.1.0_36wbdubzobvek5dwkv7hqxvz7e
+      '@angular/core': 14.1.0_rxjs@7.5.6+zone.js@0.11.7
+      rxjs: 7.5.6
+      tslib: 2.4.0
+    optionalDependencies:
+      parse5: 5.1.1
     dev: false
 
   /@angular/cli/14.0.7:
@@ -5350,6 +5367,12 @@ packages:
     dependencies:
       parse5: 6.0.1
     dev: true
+
+  /parse5/5.1.1:
+    resolution: {integrity: sha512-ugq4DFI0Ptb+WWjAdOK16+u/nHfiIrcE+sh8kZMaM0WllQKLI9rOUq6c2b7cwPkXdzfQESqvoqK6ug7U/Yyzug==}
+    requiresBuild: true
+    dev: false
+    optional: true
 
   /parse5/6.0.1:
     resolution: {integrity: sha512-Ofn/CTFzRGTTxwpNEs9PP93gXShHcTq255nzRYSKe8AkVpZY7e1fpmTfOyoIvjP5HG7Z2ZM7VS9PPhQGW2pOpw==}
