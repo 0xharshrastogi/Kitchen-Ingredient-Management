@@ -1,0 +1,17 @@
+.recipe-card {
+  height: 15rem;
+  overflow: hidden;
+
+  .card-title {
+    word-wrap: break-word;
+  }
+
+  figure {
+    height: 100%;
+    img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+    }
+  }
+}

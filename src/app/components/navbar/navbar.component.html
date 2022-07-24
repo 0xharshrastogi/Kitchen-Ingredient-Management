@@ -1,36 +1,22 @@
-<header class="px-2 py-1 flex items-center font-poppins">
-  <div>
-    <a class="flex items-center">
+<div class="navbar bg-base-100">
+  <div class="flex-1">
+    <a class="btn btn-ghost normal-case text-xl">
       <img src="assets/svg/chili-pepper-svgrepo-com.svg" alt="" /><span
-        class="text-lg font-bold text-gray-600"
+        class="font-bold text-red-600 text-3xl"
         >Recipe</span
-      ></a
-    >
+      >
+    </a>
   </div>
-
-  <div class="flex-auto"></div>
-
-  <div class="flex space-x-5 items-center">
-    <div class="hidden sm:block">
-      <ul class="flex space-x-2">
-        <li *ngFor="let link of links">
-          <a
-            [routerLink]="link.path"
-            class="text-gray-400 transition hover:text-red-600"
-            >{{ link.name }}</a
-          >
-          <!-- [routerLink]="link.path" -->
-        </li>
-      </ul>
-    </div>
-
-    <div class="flex space-x-2">
-      <button type="button" class="bg-red-600 text-white px-2 py-1 rounded font-medium">
-        Login
-      </button>
-      <button type="button" class="bg-red-600 text-white px-2 py-1 rounded font-medium">
-        Register
-      </button>
-    </div>
+  <div class="flex-none">
+    <ul class="menu menu-horizontal p-0 space-x-1">
+      <li *ngFor="let link of links">
+        <a
+          [routerLink]="link.path"
+          routerLinkActive="bg-primary text-white"
+          [routerLinkActiveOptions]="{ exact: link.path[0] === '' }"
+          >{{ link.name }}</a
+        >
+      </li>
+    </ul>
   </div>
-</header>
+</div>

@@ -10,8 +10,8 @@ type Link = { name: string; path: string[] | string; display: LinkDisplay };
 export class NavbarComponent {
   links: Link[] = [
     { name: 'Home', path: [''], display: 'ALWAYS' },
-    { name: 'Recipies', path: ['/recipies'], display: 'WHEN_AUTHENTICATED' },
-    { name: 'Shopping List', path: ['/shopping_list'], display: 'WHEN_AUTHENTICATED' },
+    { name: 'Recipies', path: ['/recipe'], display: 'WHEN_AUTHENTICATED' },
+    { name: 'Ingredients', path: ['/ingredients'], display: 'WHEN_AUTHENTICATED' },
   ];
 
   constructor() {}

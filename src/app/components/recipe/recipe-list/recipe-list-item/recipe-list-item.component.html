@@ -1,0 +1,14 @@
+<div
+  class="card w-96 bg-base-100 image-full recipe-card transition transform hover:shadow-xl group"
+>
+  <figure>
+    <img [src]="recipe.imageUri" [alt]="recipe.title" />
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title">{{ recipe.title }}</h2>
+    <p>{{ recipe.description | trimText: 100 }}</p>
+    <div class="card-actions justify-end">
+      <a class="btn btn-primary btn-sm" [routerLink]="[recipe.id]">View</a>
+    </div>
+  </div>
+</div>

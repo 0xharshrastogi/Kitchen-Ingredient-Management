@@ -1,9 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RecipeComponent } from './components/recipe/recipe.component';
+import { IngredientsComponent } from './components/ingredients/ingredients.component';
 
 const routes: Routes = [
-  { path: 'recipies', component: RecipeComponent, title: 'Recipes' },
+  {
+    path: '',
+    component: IngredientsComponent,
+  },
+  {
+    path: 'recipe',
+    title: 'Recipes',
+    loadChildren: () =>
+      import('./components/recipe/recipe.module').then((mod) => mod.RecipeModule),
+  },
+  { path: 'ingredients', component: IngredientsComponent, title: 'Ingredients' },
 ];
 
 @NgModule({

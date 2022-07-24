@@ -1,1 +1,22 @@
-<p>recipe-info works!</p>
+<section class="grid grid-cols-5 gap-5" *ngIf="recipe">
+  <section class="" style="grid-column: 1/3">
+    <h3 class="title font-black text-3xl text-primary">{{ recipe.title }}</h3>
+
+    <div class="mt-6">
+      <span class="badge bg-green-600 border-green-600 text-white p-3">{{
+        recipe.isVegitarian ? "Vegitarian" : "Non Vegetarian"
+      }}</span>
+    </div>
+  </section>
+
+  <section
+    style="grid-column: 3/6"
+    class="flex justify-center items-center h-48 rounded-xl overflow-hidden relative"
+  >
+    <img class="absolute" [src]="recipe.imageUri" />
+  </section>
+
+  <section class="mt-4 text-gray-600 tracking-wide leading-6" style="grid-column: 1/6">
+    {{ recipe.description }}
+  </section>
+</section>
