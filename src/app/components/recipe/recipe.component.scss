@@ -3,5 +3,29 @@
 }
 
 .recipe-list-wrapper {
-  max-width: 400px;
+  max-width: 410px;
+}
+
+.custom-scrollbar {
+  scrollbar-color: red transparent; /* track thumb */
+  scrollbar-width: thin; /* none, thin, or auto */
+
+  &::-webkit-scrollbar {
+    width: 20px;
+  }
+
+  &::-webkit-scrollbar-corner,
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(180, 180, 180, 0.5);
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+    &:hover {
+      background-color: rgba(180, 180, 180, 1);
+    }
+  }
 }

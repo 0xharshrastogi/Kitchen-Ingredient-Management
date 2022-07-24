@@ -1,23 +1,17 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { RecipeService } from 'src/app/services/recipe.service';
+import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Recipe } from '../recipe.model';
+import { RecipeHttpService } from './../../../services/http/recipe.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RecipeResolver implements Resolve<Recipe | undefined> {
-  constructor(private readonly recipeService: RecipeService) {}
+  constructor(private readonly recipeHttpService: RecipeHttpService) {}
 
-  resolve(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<Recipe | undefined> {
+  resolve(route: ActivatedRouteSnapshot): Observable<Recipe | undefined> {
     const { recipeId } = route.params;
-    console.log(recipeId);
-    const recipe = this.recipeService.getRecipeById(recipeId);
-    console.log(recipe);
-    return of(recipe);
+    return this.recipeHttpService.getRecipeById(recipeId);
   }
 }

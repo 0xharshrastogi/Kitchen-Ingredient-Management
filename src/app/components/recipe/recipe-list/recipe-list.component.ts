@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RecipeService } from 'src/app/services/recipe.service';
+import { RecipeHttpService } from './../../../services/http/recipe.service';
 import { Recipe } from './../recipe.model';
 
 @Component({
@@ -14,13 +14,11 @@ export class RecipeListComponent implements OnInit {
     return this.recipies?.length ?? 0;
   }
 
-  private readonly recipeService: RecipeService;
-
-  constructor(recipeService: RecipeService) {
-    this.recipeService = recipeService;
-  }
+  constructor(private readonly recipeHttpService: RecipeHttpService) {}
 
   ngOnInit(): void {
-    this.recipies = this.recipeService.getRecipes();
+    this.recipeHttpService.getRecipes().subscribe((recipes) => {
+      this.recipies = recipes;
+    });
   }
 }

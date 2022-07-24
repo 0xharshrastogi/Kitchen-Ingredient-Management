@@ -1,6 +1,11 @@
-<section class="mx-auto flex-auto px-4 mt-5">
-  <div class="grid gap-4 recipe-wrapper">
-    <section class="recipe-list-wrapper">
+<section
+  class="mx-auto flex-auto px-4 mt-5"
+  [ngStyle]="{ height: calculateHeight() + 'px' }"
+>
+  <div class="grid recipe-wrapper h-full">
+    <section
+      class="recipe-list-wrapper py-2 h-full overflow-y-scroll relative custom-scrollbar"
+    >
       <app-recipe-list></app-recipe-list>
     </section>
 
