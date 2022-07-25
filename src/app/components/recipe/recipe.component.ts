@@ -10,9 +10,7 @@ export class RecipeComponent {
   _navbarRef: HTMLElement | null = null;
   @Input() navbarSelector: string = '#navbar';
 
-  constructor(private readonly router: Router, private readonly elementRef: ElementRef) {
-    console.log(elementRef);
-  }
+  constructor(private readonly router: Router, private readonly elementRef: ElementRef) {}
 
   get navbarElm(): HTMLElement {
     if (this._navbarRef) return this._navbarRef;

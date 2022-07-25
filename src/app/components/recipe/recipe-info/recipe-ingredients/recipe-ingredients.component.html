@@ -1,0 +1,70 @@
+<div class="flex items-center mb-4 gap-20">
+  <h4 class="font-medium text-lg">Ingredients</h4>
+  <div>
+    <div class="">
+      <button
+        class="btn btn-xs btn-square bg-gray-200 hover:bg-gray-300 border-none"
+        (click)="decreaseMultiplier()"
+      >
+        <i class="fa-solid fa-minus text-black"></i>
+      </button>
+
+      <span class="mx-2 inline-block w-6 text-center">{{ multiplier }}</span>
+
+      <button
+        class="btn btn-xs btn-square bg-gray-200 hover:bg-gray-300 border-none"
+        (click)="increaseMultiplier()"
+      >
+        <i class="fa-solid fa-plus text-black"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="ingredients.length === 0; else ingredientsTemplate">
+  <div class="alert alert-info shadow-lg">
+    <div>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        class="stroke-current flex-shrink-0 w-6 h-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        ></path>
+      </svg>
+      <span>No ingredient found for this recipe</span>
+    </div>
+  </div>
+</div>
+
+<ng-template #ingredientsTemplate>
+  <form class="form-control space-y-3" (submit)="onSubmit($event)">
+    <div
+      class="flex items-center gap-3"
+      *ngFor="let ingredient of ingredients; let i = index"
+    >
+      <input
+        type="checkbox"
+        id="ingredient"
+        class="checkbox checkbox-primary checkbox-sm border-gray-400"
+        [value]="ingredient.id"
+        (change)="onSelectIngredient($event, ingredient.id)"
+      />
+      <label for="ingredient" class="text-sm"
+        >{{ ingredient.name }}
+        <span class="badge badge-xs">{{ ingredient.quantity * multiplier }}</span>
+      </label>
+    </div>
+
+    <div>
+      <button type="submit" [disabled]="isIngredientAdded" class="btn btn-primary btn-sm">
+        Add {{ selectedIngredientCount || "" }} Ingredients To Shopping List
+      </button>
+    </div>
+  </form>
+</ng-template>

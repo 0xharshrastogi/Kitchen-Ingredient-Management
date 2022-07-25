@@ -1,11 +1,14 @@
 export class Ingredient {
+  id: string;
+
   name: string;
 
-  amount: number;
+  quantity: number;
 
   constructor(name: string, amount: number) {
+    this.id = Ingredient.generateId(name);
     this.name = name;
-    this.amount = amount;
+    this.quantity = amount;
   }
 
   clone() {
@@ -14,5 +17,9 @@ export class Ingredient {
 
   static clone(ingredient: Ingredient): Ingredient {
     return Object.assign(new Ingredient('DEFAULT_NAME', 0), ingredient);
+  }
+
+  static generateId(name: string) {
+    return name.replaceAll(' ', '').toLowerCase();
   }
 }

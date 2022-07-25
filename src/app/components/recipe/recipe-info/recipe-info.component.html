@@ -1,4 +1,4 @@
-<section class="grid grid-cols-5 gap-5" *ngIf="recipe">
+<section class="grid grid-cols-5 gap-5 pb-3" *ngIf="recipe">
   <section class="" style="grid-column: 1/3">
     <div class="flex items-center gap-2 justify-between">
       <h3 class="title font-black text-3xl text-primary">{{ recipe.title }}</h3>
@@ -36,27 +36,6 @@
   </section>
 
   <section class="" style="grid-column: 1/6">
-    <h4 class="font-semibold text-lg">Ingredients ({{ recipe.ingredients.length }})</h4>
-
-    <div class="mt-4" *ngIf="recipe.ingredients.length === 0">
-      <div class="alert alert-info shadow-lg">
-        <div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            class="stroke-current flex-shrink-0 w-6 h-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            ></path>
-          </svg>
-          <span>No ingredient found for this recipe</span>
-        </div>
-      </div>
-    </div>
+    <app-recipe-ingredients [ingredients]="recipe.ingredients"></app-recipe-ingredients>
   </section>
 </section>

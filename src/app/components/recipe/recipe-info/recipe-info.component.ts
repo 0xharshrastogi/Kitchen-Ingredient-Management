@@ -19,9 +19,6 @@ export class RecipeInfoComponent implements OnInit {
       if (!recipe) return;
       this.setRecipe(recipe);
     });
-
-    console.log(this.route);
-    // this.setRecipe(this.route);
   }
 
   setRecipe(recipe: Recipe) {
