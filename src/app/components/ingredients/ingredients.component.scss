@@ -1,0 +1,9 @@
+.ingredients-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  gap: 1rem;
+
+  section {
+    padding: 0 1rem;
+  }
+}
