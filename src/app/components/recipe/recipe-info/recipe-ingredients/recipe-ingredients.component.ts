@@ -36,6 +36,7 @@ export class RecipeIngredientsComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (!changes[INGREDIENT]?.isFirstChange()) {
       this.selectedIngredients.clear();
+      this.isIngredientAdded = false;
     }
   }
 

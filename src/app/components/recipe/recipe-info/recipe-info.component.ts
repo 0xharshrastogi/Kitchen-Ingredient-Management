@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Ingredient } from '../../ingredients/ingredient.model';
 import { Recipe } from '../recipe.model';
+import { IngredientService } from './../../../services/ingredient.service';
 
 @Component({
   selector: 'app-recipe-info',
@@ -12,9 +12,10 @@ import { Recipe } from '../recipe.model';
 export class RecipeInfoComponent implements OnInit {
   recipe: Recipe | undefined;
 
-  constructor(private readonly route: ActivatedRoute, private readonly title: Title) {
-    console.count('Recipe Info Const');
-  }
+  constructor(
+    private readonly route: ActivatedRoute,
+    private readonly ingredientsService: IngredientService
+  ) {}
 
   ngOnInit(): void {
     this.route.data.subscribe((data: any) => {
@@ -25,6 +26,7 @@ export class RecipeInfoComponent implements OnInit {
   }
 
   onSelectIngredient(selectedIngredients: Ingredient[]) {
-    console.log(selectedIngredients);
+    selectedIngredients.forEach((ingredient) => this.ingredientsService.add(ingredient));
+    console.log(this.ingredientsService);
   }
 }
