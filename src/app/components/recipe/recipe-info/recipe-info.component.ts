@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { Ingredient } from '../../ingredients/ingredient.model';
 import { Recipe } from '../recipe.model';
 
 @Component({
@@ -21,7 +22,9 @@ export class RecipeInfoComponent implements OnInit {
       if (!recipe) return;
       this.recipe = recipe;
     });
+  }
 
-    console.count('Reci Init');
+  onSelectIngredient(selectedIngredients: Ingredient[]) {
+    console.log(selectedIngredients);
   }
 }

@@ -36,6 +36,9 @@
   </section>
 
   <section class="" style="grid-column: 1/6">
-    <app-recipe-ingredients [ingredients]="recipe.ingredients"></app-recipe-ingredients>
+    <app-recipe-ingredients
+      [ingredients]="recipe.ingredients"
+      (selectIngredients)="onSelectIngredient($event)"
+    ></app-recipe-ingredients>
   </section>
 </section>

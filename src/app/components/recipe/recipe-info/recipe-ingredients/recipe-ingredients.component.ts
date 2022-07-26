@@ -1,6 +1,15 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { Ingredient } from './../../../ingredients/ingredient.model';
 import { SelectedIngredints } from './SelectedIngredients';
+
+const INGREDIENT = 'ingredients';
 
 @Component({
   selector: 'app-recipe-ingredients',
@@ -8,24 +17,24 @@ import { SelectedIngredints } from './SelectedIngredients';
   styleUrls: ['./recipe-ingredients.component.scss'],
 })
 export class RecipeIngredientsComponent implements OnChanges {
-  @Input() ingredients!: Ingredient[];
+  @Input() ingredients: Ingredient[];
+
+  @Output() selectIngredients = new EventEmitter<Ingredient[]>();
 
   selectedIngredients = new SelectedIngredints();
-
   isIngredientAdded = false;
 
   get isAbleToAddSelectedIngredints(): boolean {
-    if (this.isIngredientAdded) return false;
-
-    if (this.selectedIngredients.count === 0) return false;
-
+    if (this.isIngredientAdded || this.selectedIngredients.count === 0) return false;
     return true;
   }
 
-  constructor() {}
+  constructor() {
+    this.ingredients = [];
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if ('ingredients' in changes && !changes['ingredients'].isFirstChange()) {
+    if (!changes[INGREDIENT]?.isFirstChange()) {
       this.selectedIngredients.clear();
     }
   }
@@ -41,6 +50,6 @@ export class RecipeIngredientsComponent implements OnChanges {
   onSubmit(event: SubmitEvent) {
     event.preventDefault();
     this.isIngredientAdded = true;
-    console.log(this.selectedIngredients);
+    this.selectIngredients.emit(this.selectedIngredients.ingredients);
   }
 }

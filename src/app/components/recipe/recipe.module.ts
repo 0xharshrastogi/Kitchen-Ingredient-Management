@@ -3,7 +3,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { RecipeCreateEditFormComponent } from './recipe-create-edit-form/recipe-create-edit-form.component';
-import { IngredientsComponent } from './recipe-info/ingredient/ingredient.component';
 import { RecipeInfoComponent } from './recipe-info/recipe-info.component';
 import { RecipeIngredientsComponent } from './recipe-info/recipe-ingredients/recipe-ingredients.component';
 import { RecipeListItemComponent } from './recipe-list/recipe-list-item/recipe-list-item.component';
@@ -21,7 +20,6 @@ import { RecipeComponent } from './recipe.component';
     RecipeListItemComponent,
     RecipeNoneComponent,
     RecipeIngredientsComponent,
-    IngredientsComponent,
   ],
   imports: [CommonModule, RecipeRoutingModule, HttpClientModule, SharedModule],
   exports: [RecipeComponent],

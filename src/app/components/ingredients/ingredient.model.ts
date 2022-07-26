@@ -5,10 +5,10 @@ export class Ingredient {
 
   quantity: number;
 
-  constructor(name: string, amount: number) {
+  constructor(name: string, quantity: number) {
     this.id = Ingredient.generateId(name);
     this.name = name;
-    this.quantity = amount;
+    this.quantity = quantity;
   }
 
   clone() {
@@ -21,5 +21,11 @@ export class Ingredient {
 
   static generateId(name: string) {
     return name.replaceAll(' ', '').toLowerCase();
+  }
+
+  static from(ingredientObj: { name: string; id: string; quantity: number }) {
+    return Object.assign(new Ingredient(ingredientObj.name, ingredientObj.quantity), {
+      id: ingredientObj.id,
+    });
   }
 }
