@@ -1,67 +1,46 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Ingredient } from './../../../ingredients/ingredient.model';
+import { SelectedIngredints } from './SelectedIngredients';
 
 @Component({
   selector: 'app-recipe-ingredients',
   templateUrl: './recipe-ingredients.component.html',
   styleUrls: ['./recipe-ingredients.component.scss'],
 })
-export class RecipeIngredientsComponent implements OnInit, OnChanges {
+export class RecipeIngredientsComponent implements OnChanges {
   @Input() ingredients!: Ingredient[];
 
-  selectedIngredients: Ingredient[] = [];
+  selectedIngredients = new SelectedIngredints();
 
   isIngredientAdded = false;
 
-  multiplier = 1;
+  get isAbleToAddSelectedIngredints(): boolean {
+    if (this.isIngredientAdded) return false;
+
+    if (this.selectedIngredients.count === 0) return false;
+
+    return true;
+  }
 
   constructor() {}
 
-  get selectedIngredientCount() {
-    return this.selectedIngredients.length;
-  }
-
-  ngOnInit(): void {
-    console.count(RecipeIngredientsComponent.name);
-  }
-
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
+    if ('ingredients' in changes && !changes['ingredients'].isFirstChange()) {
+      this.selectedIngredients.clear();
+    }
   }
 
-  onSelectIngredient(event: any, ingredientId: string) {
-    event.target.checked
-      ? this.addToSelectedIngredient(ingredientId)
-      : this.removeFromSelectedIngredient(ingredientId);
-  }
+  onSelectIngredient(event: any, ingredient: Ingredient) {
+    const isActionForAddIngredient = event.target.checked;
 
-  async addToSelectedIngredient(ingredientId: string) {
-    const ingredient = this.ingredients.find(
-      (ingredient) => ingredientId === ingredient.id
-    )!;
-
-    this.selectedIngredients.push(Object.assign({}, ingredient));
-  }
-
-  async removeFromSelectedIngredient(ingredientId: string) {
-    const index = this.selectedIngredients.findIndex(
-      (ingredient) => ingredientId === ingredient.id
-    )!;
-
-    this.selectedIngredients.splice(index, 1);
-  }
-
-  decreaseMultiplier() {
-    if (this.multiplier <= 1) return;
-    this.multiplier--;
-  }
-
-  increaseMultiplier() {
-    this.multiplier++;
+    isActionForAddIngredient
+      ? this.selectedIngredients.add(ingredient)
+      : this.selectedIngredients.remove(ingredient);
   }
 
   onSubmit(event: SubmitEvent) {
     event.preventDefault();
+    this.isIngredientAdded = true;
     console.log(this.selectedIngredients);
   }
 }

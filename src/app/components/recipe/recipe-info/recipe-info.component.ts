@@ -11,21 +11,17 @@ import { Recipe } from '../recipe.model';
 export class RecipeInfoComponent implements OnInit {
   recipe: Recipe | undefined;
 
-  constructor(private readonly route: ActivatedRoute, private readonly title: Title) {}
+  constructor(private readonly route: ActivatedRoute, private readonly title: Title) {
+    console.count('Recipe Info Const');
+  }
 
   ngOnInit(): void {
     this.route.data.subscribe((data: any) => {
       const recipe = data['recipe'];
       if (!recipe) return;
-      this.setRecipe(recipe);
+      this.recipe = recipe;
     });
-  }
 
-  setRecipe(recipe: Recipe) {
-    this.recipe = recipe;
-  }
-
-  updateHTMLDocumentTitle() {
-    this.title.setTitle(this.recipe!.title);
+    console.count('Reci Init');
   }
 }

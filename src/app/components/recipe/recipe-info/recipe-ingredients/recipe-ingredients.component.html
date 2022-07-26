@@ -4,16 +4,18 @@
     <div class="">
       <button
         class="btn btn-xs btn-square bg-gray-200 hover:bg-gray-300 border-none"
-        (click)="decreaseMultiplier()"
+        (click)="selectedIngredients.multiplier.decrease()"
       >
         <i class="fa-solid fa-minus text-black"></i>
       </button>
 
-      <span class="mx-2 inline-block w-6 text-center">{{ multiplier }}</span>
+      <span class="mx-2 inline-block w-6 text-center">{{
+        selectedIngredients.multiplier.value
+      }}</span>
 
       <button
         class="btn btn-xs btn-square bg-gray-200 hover:bg-gray-300 border-none"
-        (click)="increaseMultiplier()"
+        (click)="selectedIngredients.multiplier.increase()"
       >
         <i class="fa-solid fa-plus text-black"></i>
       </button>
@@ -53,17 +55,23 @@
         id="ingredient"
         class="checkbox checkbox-primary checkbox-sm border-gray-400"
         [value]="ingredient.id"
-        (change)="onSelectIngredient($event, ingredient.id)"
+        (change)="onSelectIngredient($event, ingredient)"
       />
       <label for="ingredient" class="text-sm"
         >{{ ingredient.name }}
-        <span class="badge badge-xs">{{ ingredient.quantity * multiplier }}</span>
+        <span class="badge badge-xs">{{
+          ingredient.quantity * selectedIngredients.multiplier.value
+        }}</span>
       </label>
     </div>
 
     <div>
-      <button type="submit" [disabled]="isIngredientAdded" class="btn btn-primary btn-sm">
-        Add {{ selectedIngredientCount || "" }} Ingredients To Shopping List
+      <button
+        type="submit"
+        [disabled]="!isAbleToAddSelectedIngredints"
+        class="btn btn-primary btn-sm"
+      >
+        Add {{ selectedIngredients.count || "" }} Ingredients To Shopping List
       </button>
     </div>
   </form>

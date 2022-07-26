@@ -9,11 +9,11 @@ import { RecipeResolver } from './resolver/recipe.resolver';
 
 const RECIPE_ROUTES: Routes = [
   {
-    path: '',
+    path: 'recipe',
     component: RecipeComponent,
     title: 'Recipes',
     children: [
-      { path: '', component: RecipeNoneComponent },
+      { path: 'recipe', component: RecipeNoneComponent },
       {
         path: 'create',
         component: RecipeCreateEditFormComponent,
