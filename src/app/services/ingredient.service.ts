@@ -3,7 +3,11 @@ import { Ingredient } from '../components/ingredients/ingredient.model';
 
 @Injectable({ providedIn: 'root' })
 export class IngredientService {
-  store = new Map<string, Ingredient>();
+  protected store = new Map<string, Ingredient>();
+
+  get ingredients() {
+    return [...this.store.values()];
+  }
 
   add(ingredient: Ingredient) {
     if (!this.store.has(ingredient.id)) {
@@ -11,7 +15,7 @@ export class IngredientService {
       return;
     }
 
-    const clonedIngredient = this.store.get(ingredient.id)!.clone();
+    const clonedIngredient = this.get(ingredient.id)!.clone();
     clonedIngredient.quantity += ingredient.quantity;
     this.store.set(ingredient.id, clonedIngredient);
   }
@@ -29,7 +33,19 @@ export class IngredientService {
       );
 
     const ingredient = this.store.get(ingredientId!);
-    this.remove(ingredientId!);
+    this.store.delete(ingredientId!);
     return ingredient;
+  }
+
+  get(ingredientId: string): Ingredient | undefined {
+    return this.store.get(ingredientId);
+  }
+
+  update(ingredientId: string, updateInfo: Partial<Ingredient>): void {
+    const { name, quantity } = Object.assign(this.get(ingredientId)!, updateInfo);
+    const updatedIngredient = new Ingredient(name, quantity);
+
+    this.store.delete(ingredientId);
+    this.store.set(updatedIngredient.id, updatedIngredient);
   }
 }

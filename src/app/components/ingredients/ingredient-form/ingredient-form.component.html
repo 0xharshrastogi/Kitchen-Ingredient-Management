@@ -1,0 +1,45 @@
+<form
+  class="form-control"
+  autocomplete="off"
+  [formGroup]="ingredientFg"
+  (ngSubmit)="isEditMode ? onSaveEditChanges() : onSubmit()"
+>
+  <div class="gap-2">
+    <div>
+      <label class="label" for="name">Name Of Ingredient</label>
+      <input
+        type="text"
+        name="name"
+        placeholder="Tomato"
+        class="input bg-gray-100 hover:bg-gray-200 focus:bg-gray-200"
+        formControlName="name"
+      />
+    </div>
+
+    <div>
+      <label class="label" for="name">Quantity</label>
+      <input
+        type="number"
+        min="0"
+        name="quantity"
+        placeholder="0"
+        class="input bg-gray-100 hover:bg-gray-200 focus:bg-gray-200"
+        pattern="[1-9][0-9]*|0"
+        formControlName="quantity"
+      />
+    </div>
+
+    <div class="mt-4 space-x-2">
+      <button type="submit" class="btn btn-primary">
+        {{ isEditMode ? "Save Changes" : "Save" }}
+      </button>
+      <button
+        type="reset"
+        class="btn bg-gray-200 border-none text-black hover:bg-gray-300"
+        (click)="ingredientFg.reset()"
+      >
+        Clear
+      </button>
+    </div>
+  </div>
+</form>

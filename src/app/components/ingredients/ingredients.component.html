@@ -1,44 +1,15 @@
 <section class="px-4 ingredients-wrapper">
   <section>
-    <form class="form-control" autocomplete="off">
-      <div class="gap-2">
-        <div>
-          <label class="label" for="name">Name Of Ingredient</label>
-          <input
-            type="text"
-            name="name"
-            placeholder="Tomato"
-            class="input bg-gray-100 hover:bg-gray-200 focus:bg-gray-200"
-          />
-        </div>
-
-        <div>
-          <label class="label" for="name">Quantity</label>
-          <input
-            type="number"
-            min="0"
-            name="quantity"
-            placeholder="0"
-            class="input bg-gray-100 hover:bg-gray-200 focus:bg-gray-200"
-            pattern="[1-9][0-9]*|0"
-          />
-        </div>
-
-        <div class="mt-4 space-x-2">
-          <button type="button" class="btn btn-primary">Add</button>
-          <button
-            type="reset"
-            class="btn bg-gray-200 border-none text-black hover:bg-gray-300"
-          >
-            Clear
-          </button>
-        </div>
-      </div>
-    </form>
+    <app-ingredient-form
+      (ingredientCreate)="onIngredientCreate($event)"
+    ></app-ingredient-form>
   </section>
 
   <section>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum at assumenda unde est
-    tempore deleniti quisquam molestias quos fugit perspiciatis.
+    <!-- <app-ingredient-list [ingredients]="ingredients"></app-ingredient-list> -->
+    <app-ingredient-list
+      [ingredients]="ingredients"
+      (delete)="onIngredientDelete($event)"
+    ></app-ingredient-list>
   </section>
 </section>
