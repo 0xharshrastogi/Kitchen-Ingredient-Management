@@ -26,13 +26,13 @@
             type="button"
             class="btn btn-ghost btn-square btn-xs tooltip tooltip-sm"
             data-tip="Delete Ingredient"
-            (click)="delete.emit(ingredient)"
+            (click)="onDelete(ingredient)"
           >
             <i class="fa-solid fa-trash"></i>
           </button>
           <a
             routerLink="/ingredients/{{ ingredient.id }}/edit"
-            class="btn btn-square btn-ghost btn-xs tooltip"
+            class="btn inline-flex btn-ghost btn-square btn-xs tooltip tooltip-sm"
             data-tip="Edit Ingredient Details"
           >
             <i class="fa-solid fa-pencil"></i>

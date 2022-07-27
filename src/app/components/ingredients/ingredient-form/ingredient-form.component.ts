@@ -1,8 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map } from 'rxjs';
-import { IngredientService } from 'src/app/services/ingredient.service';
+import { exhaustMap, map, of } from 'rxjs';
+import { IngredientHttpService } from 'src/app/services/http/ingredient.service';
+import { IngredientServiceLocal } from 'src/app/services/ingredient.service';
 import { Ingredient } from './../ingredient.model';
 
 const NAME = 'name';
@@ -26,7 +27,8 @@ export class IngredientFormComponent implements OnInit {
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly ingredientService: IngredientService,
+    private readonly ingredientLocalService: IngredientServiceLocal,
+    private readonly ingredientHttpService: IngredientHttpService,
     private readonly router: Router
   ) {
     this.ingredientFg = new FormGroup({
@@ -47,8 +49,13 @@ export class IngredientFormComponent implements OnInit {
       this.ingredientFg.value[QUANTITY]!
     );
 
-    this.ingredientCreate.emit(ingredient);
-    this.reset();
+    this.ingredientHttpService.postIngredient(ingredient).subscribe({
+      next: () => {
+        this.ingredientLocalService.add(ingredient);
+        this.reset();
+      },
+      error: (error: Error | undefined) => alert(error?.message),
+    });
   }
 
   reset() {
@@ -58,26 +65,33 @@ export class IngredientFormComponent implements OnInit {
   }
 
   onSaveEditChanges() {
-    this.ingredientService.update(
-      this.editIngredientId!,
-      <Partial<Ingredient>>this.ingredientFg.value
-    );
-    this.reset();
-    this.router.navigate(['ingredients']);
+    this.ingredientHttpService
+      .updateIngredient(
+        this.editIngredientId!,
+        <Partial<Ingredient>>this.ingredientFg.value
+      )
+      .subscribe(() => {
+        console.log(this.editIngredientId, this.ingredientFg.value);
+        this.ingredientLocalService.update(
+          this.editIngredientId!,
+          <Partial<Ingredient>>this.ingredientFg.value
+        );
+        this.reset();
+        this.router.navigate(['ingredients']);
+      });
   }
 
   ngOnInit(): void {
+    const fetchIngredient$ = exhaustMap((id: string | null) =>
+      id ? this.ingredientHttpService.getIngredientById(id) : of(null)
+    );
     this.route.paramMap
       .pipe(map((param) => param.get('ingredientId')))
-      // .pipe(map((ingredientId) => ingredientId))
-      .subscribe((ingredientId) => {
-        console.log(ingredientId);
-        if (!ingredientId) return;
-
-        const ingredient = this.ingredientService.get(ingredientId);
+      .pipe(fetchIngredient$)
+      .subscribe((ingredient) => {
         if (!ingredient) return;
 
-        this.editIngredientId = ingredientId;
+        this.editIngredientId = ingredient.id;
         this.isEditMode = true;
         this.ingredientFg.setValue({
           name: ingredient.name,

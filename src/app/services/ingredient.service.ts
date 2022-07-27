@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Ingredient } from '../components/ingredients/ingredient.model';
+import { Subject } from 'rxjs';
+import { Ingredient } from './../components/ingredients/ingredient.model';
 
 @Injectable({ providedIn: 'root' })
 export class IngredientService {
@@ -47,5 +48,50 @@ export class IngredientService {
 
     this.store.delete(ingredientId);
     this.store.set(updatedIngredient.id, updatedIngredient);
+  }
+}
+
+@Injectable({ providedIn: 'root' })
+export class IngredientServiceLocal {
+  create = new Subject<Ingredient>();
+
+  ingredients: Ingredient[] = [];
+
+  constructor() {}
+
+  find(ingredientId: string) {
+    return this.ingredients.find((value) => value.id === ingredientId);
+  }
+
+  add(ingredient: Ingredient) {
+    if (this.find(ingredient.id)) return;
+
+    this.ingredients.push(ingredient);
+    this.create.next(ingredient);
+  }
+
+  remove(ingredientId: string) {
+    const index = this.ingredients.findIndex(
+      (ingredient) => ingredient.id === ingredientId
+    );
+
+    if (index === -1) return;
+    this.ingredients.splice(index, 1);
+  }
+
+  update(ingredientId: string, updateInfo: Partial<Ingredient>) {
+    const index = this.ingredients.findIndex(
+      (ingredient) => ingredientId === ingredient.id
+    );
+    console.log({ index, updateInfo, ingredientId });
+    if (index === -1) return;
+
+    this.ingredients[index] = Object.assign(
+      new Ingredient('', 0),
+      this.ingredients[index],
+      updateInfo
+    );
+
+    console.log(this.ingredients);
   }
 }
