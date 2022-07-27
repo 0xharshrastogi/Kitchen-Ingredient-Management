@@ -1,13 +1,11 @@
 <section class="px-4 ingredients-wrapper">
   <section>
-    <app-ingredient-form
-      (ingredientCreate)="onIngredientCreate($event)"
-    ></app-ingredient-form>
+    <app-ingredient-form></app-ingredient-form>
   </section>
 
   <section>
     <!-- <app-ingredient-list [ingredients]="ingredients"></app-ingredient-list> -->
-    <app-ingredient-list (delete)="onIngredientDelete($event)"></app-ingredient-list>
+    <app-ingredient-list></app-ingredient-list>
     <!-- [ingredients]="ingredients" -->
   </section>
 </section>

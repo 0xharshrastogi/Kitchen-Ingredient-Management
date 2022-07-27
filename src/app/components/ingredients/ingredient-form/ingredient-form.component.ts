@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { exhaustMap, map, of } from 'rxjs';
@@ -14,8 +14,6 @@ const QUANTITY = 'quantity';
   templateUrl: './ingredient-form.component.html',
 })
 export class IngredientFormComponent implements OnInit {
-  @Output() ingredientCreate = new EventEmitter<Ingredient>();
-
   editIngredientId: string | undefined;
 
   isEditMode: boolean = false;
