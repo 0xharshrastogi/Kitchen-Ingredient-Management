@@ -1,1 +1,99 @@
-<p>recipe-create-edit-form works!</p>
+<form [formGroup]="recipeFg" class="form-control" (ngSubmit)="onSubmit()">
+  <section class="flex">
+    <div>
+      <div>
+        <label for="title" class="label">Recipe Name</label>
+        <input
+          type="text"
+          name="title"
+          id="title"
+          placeholder="Schezwan Noodeles"
+          class="input bg-gray-100"
+          formControlName="title" />
+      </div>
+
+      <div>
+        <label for="imageUri" class="label">Image URL</label>
+        <input
+          type="url"
+          name="imageUri"
+          id="imageUri"
+          placeholder="http:// or www"
+          class="input bg-gray-100"
+          formControlName="imageUri" />
+      </div>
+    </div>
+
+    <section
+      class="flex justify-center items-center h-40 rounded-xl overflow-hidden relative m-4 w-full">
+      <img
+        class=""
+        [src]="getControl('imageUri')!.value"
+        *ngIf="getControl('imageUri')?.valid; else noimage" />
+
+      <ng-template #noimage>
+        <div class="alert w-full h-full bg-gray-100 text-gray-400 mx-auto">
+          <span><i class="fa-solid fa-image"></i> Recipe Image Preview</span>
+        </div>
+      </ng-template>
+    </section>
+  </section>
+
+  <div>
+    <label for="description" class="label">Description</label>
+    <textarea
+      type="url"
+      name="description"
+      placeholder="This recipe is about..."
+      id="imageUri"
+      rows="7"
+      class="input bg-gray-100 w-full"
+      formControlName="description"></textarea>
+  </div>
+
+  <div>
+    <label for="ingredients" class="label">
+      <span>
+        Ingredients
+        <button
+          type="button"
+          class="btn btn-xs btn-square bg-gray-200 hover:bg-gray-300 border-none ml-3 tooltip"
+          data-tip="Add Ingredient"
+          (click)="onAddIngredient()">
+          <i class="fa-solid fa-plus text-black"></i>
+        </button>
+      </span>
+    </label>
+
+    <div
+      *ngIf="recipeFg.controls.ingredients.value.length === 0; else ingredientsTemplate">
+      <p class="alert alert-info">No Ingredients Added To This Recipe</p>
+    </div>
+
+    <ng-template #ingredientsTemplate>
+      <section formArrayName="ingredients" class="space-y-3">
+        <div
+          *ngFor="let control of recipeFg.controls.ingredients.controls; let i = index">
+          <div [formGroupName]="i" class="flex gap-3 w-full">
+            <input
+              type="text"
+              placeholder="Ingredient"
+              class="input bg-gray-100 w-2/3"
+              formControlName="name" />
+
+            <input
+              type="number"
+              placeholder="Amount"
+              min="0"
+              class="input bg-gray-100 w-1/3"
+              formControlName="quantity" />
+          </div>
+        </div>
+      </section>
+    </ng-template>
+  </div>
+
+  <div class="mt-4">
+    <button type="submit" class="btn btn-primary">Save</button>
+  </div>
+</form>

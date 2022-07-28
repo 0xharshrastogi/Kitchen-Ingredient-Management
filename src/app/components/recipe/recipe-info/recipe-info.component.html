@@ -4,9 +4,12 @@
       <h3 class="title font-black text-3xl text-primary">{{ recipe.title }}</h3>
       <div class="flex gap-1">
         <div class="tooltip z-50" data-tip="Edit Recipe">
-          <button class="btn btn-xs btn-square bg-gray-200 hover:bg-gray-300 border-none">
+          <a
+            routerLink="edit"
+            class="btn btn-xs btn-square bg-gray-200 hover:bg-gray-300 border-none"
+          >
             <i class="fa-solid fa-pen text-black"></i>
-          </button>
+          </a>
         </div>
       </div>
     </div>
