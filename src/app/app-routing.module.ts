@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { IngredientsComponent } from './components/ingredients/ingredients.component';
+import { LoginComponent } from './components/login/login.component';
 import { RecipeComponent } from './components/recipe/recipe.component';
+import { AuthenticationService } from './services/http/authentication.service';
 
 const routes: Routes = [
   {
     path: '',
-    component: IngredientsComponent,
+    component: LoginComponent,
+    title: 'Home',
   },
   {
     path: 'recipe',
@@ -14,10 +17,13 @@ const routes: Routes = [
     component: RecipeComponent,
   },
   { path: 'ingredients', component: IngredientsComponent, title: 'Ingredients' },
+  { path: 'login', component: LoginComponent, title: 'Login' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+  constructor(private readonly authService: AuthenticationService) {}
+}

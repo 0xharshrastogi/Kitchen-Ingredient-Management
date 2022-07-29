@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { IngredientHttpService } from 'src/app/services/http/ingredient.service';
 import { Ingredient } from '../../ingredients/ingredient.model';
 import { Recipe } from '../recipe.model';
-import { IngredientService } from './../../../services/ingredient.service';
 
 @Component({
   selector: 'app-recipe-info',
@@ -14,7 +14,7 @@ export class RecipeInfoComponent implements OnInit {
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly ingredientsService: IngredientService
+    private readonly ingredientHttpService: IngredientHttpService
   ) {}
 
   ngOnInit(): void {
@@ -26,7 +26,9 @@ export class RecipeInfoComponent implements OnInit {
   }
 
   onSelectIngredient(selectedIngredients: Ingredient[]) {
-    selectedIngredients.forEach((ingredient) => this.ingredientsService.add(ingredient));
-    console.log(this.ingredientsService);
+    console.log(selectedIngredients);
+    selectedIngredients.forEach((ingredient) =>
+      this.ingredientHttpService.postIngredient(ingredient).subscribe(console.log)
+    );
   }
 }

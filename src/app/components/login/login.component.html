@@ -1,0 +1,58 @@
+<main class="grid absolute z-[0] inset-0 items-center justify-center bg-gray-200">
+  <section class="p-4 shadow-2xl rounded-lg bg-white">
+    <h1 class="text-center text-indigo-500 font-bold text-4xl tracking-wider mb-3">
+      Login
+    </h1>
+
+    <form class="form-control py-3" [formGroup]="loginFg" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="name" class="label">
+          <span class="label-text font-semibold text-gray-500">Username</span>
+          <span
+            class="label-text-alt text-red-500 font-medium text-xs"
+            *ngIf="canDisplayError('name')"
+            >{{ getErrorMessage("name") }}</span
+          >
+        </label>
+        <input
+          type="text"
+          name="name"
+          placeholder="ex: @johndoe"
+          id="name"
+          class="input bg-gray-100"
+          formControlName="name"
+          [ngClass]="{ 'input-bordered input-error': canDisplayError('name') }"
+          autocomplete />
+      </div>
+
+      <div>
+        <label for="password" class="label font-semibold text-gray-500">
+          <span class="label-text font-semibold text-gray-500">Password</span>
+          <span
+            class="label-text-alt text-red-500 font-medium text-xs"
+            *ngIf="canDisplayError('password')"
+            >{{ getErrorMessage("password") }}</span
+          >
+        </label>
+        <input
+          type="password"
+          name="password"
+          placeholder="*******"
+          id="password"
+          class="input bg-gray-100"
+          [ngClass]="{ 'input-bordered input-error': canDisplayError('password') }"
+          autocomplete
+          formControlName="password" />
+      </div>
+
+      <div class="mt-4">
+        <button
+          type="submit"
+          class="btn btn-block btn-primary"
+          [disabled]="loginFg.invalid && (loginFg.dirty || loginFg.touched)">
+          Submit
+        </button>
+      </div>
+    </form>
+  </section>
+</main>

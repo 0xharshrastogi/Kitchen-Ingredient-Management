@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject, tap } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 import { Recipe } from 'src/app/components/recipe/recipe.model';
 import { environment } from 'src/environments/environment';
 import { Ingredient } from './../../components/ingredients/ingredient.model';
@@ -38,5 +38,9 @@ export class RecipeHttpService {
       .post<Recipe>(`${baseUri}/recipe`, recipe)
       .pipe(tap((recipe) => (recipe.ingredients = recipe.ingredients.map(toIngredient))))
       .pipe(tap(() => this.create.next(recipe)));
+  }
+
+  editRecipe(recipe: Recipe): Observable<object> {
+    return this.http.put(`${baseUri}/recipe/${recipe.id}`, recipe);
   }
 }

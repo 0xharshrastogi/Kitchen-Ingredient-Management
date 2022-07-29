@@ -1,22 +1,28 @@
-<div class="navbar bg-base-100" id="navbar" #navbarRef>
+<div class="navbar bg-base-100 relative z-50" id="navbar" #navbarRef>
   <div class="flex-1">
-    <a class="btn btn-ghost normal-case text-xl">
+    <a class="btn btn-ghost normal-case text-xl" routerLink="/">
       <img
         src="https://cdn-icons-png.flaticon.com/512/6866/6866584.png"
         width="45"
-        alt=""
-      /><span class="font-bold text-red-600 text-3xl inline-block ml-3">LemonTray</span>
+        alt="" /><span class="font-bold text-red-600 text-3xl inline-block ml-3"
+        >LemonTray</span
+      >
     </a>
   </div>
   <div class="flex-none">
     <ul class="menu menu-horizontal p-0 space-x-1">
       <li *ngFor="let link of links">
         <a
+          *ngIf="true"
           [routerLink]="link.path"
           routerLinkActive="bg-primary text-white"
           [routerLinkActiveOptions]="{ exact: link.path[0] === '' }"
           >{{ link.name }}</a
         >
+      </li>
+
+      <li *ngIf="isLoggedIn">
+        <button class="btn btn-secondary text-white" (click)="onLogout()">Logout</button>
       </li>
     </ul>
   </div>

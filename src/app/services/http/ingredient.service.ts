@@ -26,7 +26,11 @@ export class IngredientHttpService {
   }
 
   postIngredient(ingredient: Ingredient) {
-    return this.http.post(`${BASEURI}/ingredients/`, ingredient);
+    return this.http.post(`${BASEURI}/ingredients`, ingredient);
+  }
+
+  postIngredients(ingredients: Ingredient[]) {
+    return this.http.post(`${BASEURI}/ingredients`, ingredients);
   }
 
   deleteIngredient<T>(ingredientId: string): Observable<T>;

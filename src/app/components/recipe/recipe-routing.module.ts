@@ -27,7 +27,9 @@ const RECIPE_ROUTES: Routes = [
       {
         path: ':recipeId/edit',
         component: RecipeCreateEditFormComponent,
+        data: { ['isEditMode']: true },
         title: 'Edit Recipe',
+        resolve: { ['recipe']: RecipeResolver },
       },
     ],
   },
